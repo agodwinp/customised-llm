@@ -1,7 +1,8 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 import torch
+import json
 
-model_dir = "drive_model_finetuned"  # or wherever you saved your model
+model_dir = "model/model_finetuned"  # or wherever you saved your model
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
@@ -12,5 +13,5 @@ pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, device=0 if
 # Example prompt
 prompt = "I want to add a cheeseburger and fries to my basket."
 
-output = pipe(prompt, max_new_tokens=100, do_sample=False)[0]["generated_text"]
-print(f"🔁 Response: {output}")
+output = pipe(prompt, max_new_tokens=100, do_sample=False)[0]
+print(f"🔁 Response:\n\n{json.dumps(output, indent=4)}")

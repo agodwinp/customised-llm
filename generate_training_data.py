@@ -6,7 +6,7 @@ from copy import deepcopy
 random.seed(42)
 
 # Load product data
-with open("data/products.json") as f:
+with open("data/products.json", encoding="utf-8") as f:
     products_data = json.load(f)
 products = products_data["items"]
 
@@ -146,9 +146,9 @@ for _ in range(1000):
     intent = random.choice(INTENTS)
     examples.append(generate_example(intent))
 
-# Save as JSONL
+# Save as JSONL (UTF-8)
 output_path = Path("data/dataset.jsonl")
-with open(output_path, "w") as f:
+with open(output_path, "w", encoding="utf-8") as f:
     for example in examples:
         f.write(json.dumps(example, ensure_ascii=False) + "\n")
 
